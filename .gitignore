@@ -1,0 +1,12 @@
+.DS_Store
+.codex/
+.mplconfig/
+.pycache/
+.venv/
+__pycache__/
+
+data/raw/
+data/processed/
+models/
+
+*.pyc
