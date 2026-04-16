@@ -6,25 +6,42 @@ This folder contains a lightweight Streamlit app intended for public hosting.
 
 The training project uses heavier ML dependencies such as `scikit-surprise`. Public hosts like Streamlit Community Cloud are usually more reliable when the serving app uses a smaller dependency set. This app serves precomputed Bollywood recommendations from `bollywood_public_bundle.joblib`.
 
-## Build the public bundle
+## Quick Start (Local)
 
-From the project root:
+```bash
+# From repo root
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r deploy/streamlit_public/requirements.txt
+
+# Generate demo data (if bundle doesn't exist yet)
+pip install numpy
+python deploy/streamlit_public/generate_demo_bundle.py
+
+# Run the app
+streamlit run deploy/streamlit_public/app.py
+```
+
+## Build the production bundle
+
+If you have the full training pipeline and models available:
 
 ```bash
 .venv/bin/python deploy/streamlit_public/build_public_bundle.py
 ```
 
-## Streamlit Community Cloud
+## Deploy to Streamlit Community Cloud
 
-- Push this repository to GitHub.
-- In Streamlit Community Cloud, choose the entrypoint:
-  `deploy/streamlit_public/app.py`
-- Streamlit will use the `requirements.txt` file in this folder.
-- The included `bollywood_public_bundle.joblib` is already filtered to the Bollywood-focused TIMDB catalog, so no training step is required at deploy time.
+1. Push this repository to GitHub.
+2. Go to [share.streamlit.io](https://share.streamlit.io) and sign in.
+3. Click **New app** and select this repo.
+4. Set the entrypoint to: `deploy/streamlit_public/app.py`
+5. Streamlit will use the `requirements.txt` in this folder automatically.
+6. Click **Deploy** — the app goes live in minutes.
 
-## Render
+## Deploy to Render
 
-- Push this repository to GitHub.
-- Create a new Blueprint on Render from the repo.
-- Render will detect `render.yaml` in the repository root.
-- The web service starts the Streamlit app directly from `deploy/streamlit_public/app.py`.
+1. Push this repository to GitHub.
+2. Go to [render.com](https://render.com) and create a new **Blueprint**.
+3. Connect the repo — Render detects `render.yaml` automatically.
+4. Click **Apply** — the web service starts the Streamlit app.

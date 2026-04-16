@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r deploy/streamlit_public/requirements.txt
-    startCommand: streamlit run deploy/streamlit_public/app.py --server.address 0.0.0.0 --server.port $PORT
+    startCommand: streamlit run deploy/streamlit_public/app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.11
